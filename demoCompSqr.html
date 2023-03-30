@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Demonstration of O(n^2) complexity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Demonstration of O(n^2) complexity</h1>
+  <h4> This is to show how the size of an O(n^2) program increases with increase in 'n'</h4>
+  <pre><code>
+    var points = '';
+    for (var i = 0; i &lt; side; i++) {
+      for (var j = 0; j &lt; side; j++) {
+        points += '<span class="point"></span>';
+      }
+      points += '&lt;br&gt;';
+    }
+    </code></pre>
+  <h4> The above program draws a square of points of size 'n' on the screen</h4>
+  Modify value of maximum 'n' <br>
+
+  <input type="number" min="1" max="20" value="10" id="input-size">
+  <button onclick="drawSquares(document.getElementById('input-size').value)">Draw Square</button>
+  <div id="output"></div>
+
+  <script>
+    function drawSquares(cnt) {
+      var output = document.getElementById('output');
+      output.innerHTML = '';
+      var side = 0;
+      var timer = setInterval(function () {
+        if (side >= cnt) {
+          clearInterval(timer);
+          return;
+        }
+        side += 1;
+        var points = '';
+        for (var i = 0; i < side; i++) {
+          for (var j = 0; j < side; j++) {
+            points += '<span class="point"></span>';
+          }
+          points += '<br>';
+        }
+        output.innerHTML = points;
+      }, 500);
+    }
+  </script>
+</body>
+
+</html>

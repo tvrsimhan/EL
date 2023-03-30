@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demonstration of O(n^3) complexity</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Demonstration of O(n^3) complexity</h1>
+    <h4> This is to show how the size of an O(n^3) program increases with increase in 'n'</h4>
+    <pre><code>
+    var layers = '';
+    for (var k = 0; k &lt; cnt; k++) {
+        var points = '';
+        for (var i = 0; i &lt; cnt; i++) {
+            for (var j = 0; j &lt; cnt; j++) {
+                points += '<span class="point"></span>';
+            }
+            points += '&lt;br&gt;';
+        }
+        layers += '&lt;div class="layer"&gt;' + points + '&lt;/div&gt;';
+    }
+        </code></pre>
+    <h4> The above program draws a cube of points of size 'n' on the screen</h4>
+
+    Modify value of maximum 'n' <br>
+
+    <input type="number" min="1" max="20" value="2" id="input-size" onchange="drawCube(this.value)">
+    <button onclick="drawCube(document.getElementById('input-size').value)">Draw Cube</button>
+    <div id="output"></div>
+
+    <script>
+        function drawCube(cnt) {
+            var output = document.getElementById('output');
+            output.innerHTML = '';
+
+            var layers = '';
+            for (var k = 0; k < cnt; k++) {
+                var points = '';
+                for (var i = 0; i < cnt; i++) {
+                    for (var j = 0; j < cnt; j++) {
+                        points += '<span class="point"></span>';
+                    }
+                    points += '<br>';
+                }
+                layers += '<div class="layer">' + points + '</div>';
+            }
+            output.innerHTML = layers;
+        }
+    </script>
+
+</body>
+
+</html>

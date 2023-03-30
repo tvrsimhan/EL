@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demonstration of Exponential Time Complexity</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Demonstration of Exponential Time Complexity</h1>
+    <h4>
+        This program demonstrates the exponential time complexity of an algorithm that computes all permutations of a
+        given string. As the length of the string increases, the number of permutations grows exponentially, resulting
+        in a significant increase in the time taken to compute all permutations.
+    </h4>
+    <p>
+        <!-- Enter a string to compute all permutations: <input type="text" id="input"> -->
+        Modify value of maximum 'n' <br>
+
+        <input type="number" min="1" max="26" value="3" id="input-size" onchange="compute()">
+        <button onclick="compute()">Compute Permutations</button>
+    </p>
+    <pre><code id="outputExp"></code></pre>
+
+    <script>
+        function compute() {
+            var inputSize = document.getElementById('input-size').value;
+            var input = "abcdefghijklmnopqrstuvwxyz".slice(0, inputSize); //document.getElementById('input').value;
+            var outputExp = document.getElementById('outputExp');
+            outputExp.textContent = '';
+            var start = performance.now();
+            console.time('permute')
+            var permutations = permute(input);
+            console.timeEnd('permute')
+            var end = performance.now();
+            console.log('start:' + start)
+            console.log('end:' + end)
+            console.log(end - start)
+            var i = 0;
+            outputExp.textContent += 'Computed ' + permutations.length + ' permutations in ' + (end - start) + ' milliseconds.\n\n';
+            var printPermutations = setInterval(function () {
+                if (i >= permutations.length) {
+                    clearInterval(printPermutations);
+                    return;
+                }
+                outputExp.textContent += permutations[i] + '\n';
+                i++;
+            }, 100);
+            // outputExp.textContent = permutations.join('\n');
+            // outputExp.textContent += '\n\nComputed ' + permutations.length + ' permutations in ' + (end - start) + ' milliseconds.';
+        }
+
+        function permute(str) {
+            if (str.length <= 1) {
+                return [str];
+            }
+
+            var result = [];
+            for (var i = 0; i < str.length; i++) {
+                var firstChar = str[i];
+                var charsLeft = str.substring(0, i) + str.substring(i + 1);
+                var innerPermutations = permute(charsLeft);
+                for (var j = 0; j < innerPermutations.length; j++) {
+                    result.push(firstChar + innerPermutations[j]);
+                }
+            }
+            return result;
+        }
+    </script>
+</body>
+
+</html>
